@@ -29,7 +29,7 @@ const prepareRecords = (data, dimensions) => {
 };
 
 // Insert into Timestream DB with sdk
-module.exports.insertData = async (data) => {
+module.exports.registerData = async (data) => {
   // required
   const dimensions = [{ Name: "region", Value: constants.REGION }];
 

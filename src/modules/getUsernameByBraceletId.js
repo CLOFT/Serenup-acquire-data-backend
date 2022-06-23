@@ -1,0 +1,1 @@
+// TODO : get username from RDS by bracelet id

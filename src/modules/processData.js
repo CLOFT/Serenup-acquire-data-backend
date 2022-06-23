@@ -1,15 +1,13 @@
-const { insertData } = require("./insertData");
+const { registerData } = require("./registerData");
 
 // Process bracelets data
 module.exports.processData = async (data) => {
-  let isAlarm = data.Fall || data.LowBattery;
-
-  if (isAlarm) {
+  if (data.Alarm != null) {
     // TODO : send alarm message to SNS
     // TODO : insert alarm into DB
   }
 
   data = JSON.parse(data);
-  const res = await insertData(data);
+  const res = await registerData(data);
   if (res) console.log("Insert went successful!");
 };
