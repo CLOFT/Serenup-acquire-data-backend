@@ -1,19 +1,13 @@
 const path = require("path");
 
-import { TimestreamWriteClient, WriteRecordsCommand } from "@aws-sdk/client-timestream-write";
 
 // load environment variables
-import { constants } from "./config";
-
-const client = new TimestreamWriteClient({ region: constants.REGION });
+const { processData } = require("./modules/processData");
 
 
 // API Gateway handler
 exports.handler = async (event, context) => {
-	if (Object.keys(event) != null) {
-		const res = await sendMessage(event);
-		return res;
-	}
+  if (event.body != null) await processData(event.body);
 };
 
 /*
@@ -31,7 +25,7 @@ PAYLOAD Bracelets
   "steps" : "int (0 - n)",
   "battery" : "int (0 - 100 %)",
   "timestamp" : "timestamp",
-  "alarms" : "FALL || LOW_BATTERY"
+  "alarm" : "FALL || LOW_BATTERY"
 }
 
 */
