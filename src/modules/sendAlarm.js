@@ -1,12 +1,23 @@
-const { constants } = require("../config");
-const getUsernameByBraceletsId = require("./bracelets");
+const { constants } = require('../config');
+const getUsernameByBraceletsId = require('./api-gateway/bracelets');
+const { getSecureContactsByUsername } = require('./userSecureContacts');
 
 // Send alarm message to SNS
-module.exports.sendAlarm = async (body) => {
+const sendAlarm = async (body) => {
   const username = await getUsernameByBraceletsId(body.braceletId);
 
   // TODO : get secure contacts by username
-  const secureContacts = null;
+  const secureContacts = await getSecureContactsByUsername(username);
+
+  const message = {
+    BraceletId: body.BraceletId,
+    Type: body.Alarms,
+    Value: body.Battery,
+    SecureContacts: secureContacts,
+
+    // TODO : review payload for alarms again
+    // TODO : check payload format of secureContacts
+  };
   /* body : 
         {
             BraceletId : "guid",
@@ -22,5 +33,11 @@ module.exports.sendAlarm = async (body) => {
     */
 
   // TODO : send alarm message to SNS
-
 };
+
+// TODO : create a mock test to send alarm from local
+const sendAlarmTest = async () => {
+    // TODO : implement send SNS msg test
+};
+
+module.exports = sendAlarm;
