@@ -17,6 +17,7 @@ const prepareRecords = (data, dimensions) => {
   const { Time: time } = { ...data };
   delete data.Time;
 
+  console.log(time);
   const payload = {
     Dimensions: dimensions,
     MeasureName: "data",
@@ -35,6 +36,7 @@ module.exports.registerData = async (data) => {
 
   const records = prepareRecords(data, dimensions);
 
+  console.log(records);
   // WriteRecordsCommandInput
   const input = {
     DatabaseName: constants.DATABASE_NAME,

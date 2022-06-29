@@ -9,5 +9,11 @@ module.exports.processData = async (data) => {
 
   data = JSON.parse(data);
   const res = await registerData(data);
-  if (res) console.log("Insert went successful!");
+  if (res) {
+    console.log("Insert went successful!");
+    return {
+      statusCode : 200,
+      message : "Data successfully registered!"
+    }
+  }
 };
