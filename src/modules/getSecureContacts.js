@@ -1,1 +1,1 @@
-// TODO : implement module to get secure contacts from Cognito by username
+// TODO : implement module to get secure contacts from RDS by username
