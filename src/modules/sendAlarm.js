@@ -1,6 +1,12 @@
+const { constants } = require("../config");
+const getUsernameByBraceletsId = require("./bracelets");
+
 // Send alarm message to SNS
 module.exports.sendAlarm = async (body) => {
-  // TODO : send alarm message to SNS
+  const username = await getUsernameByBraceletsId(body.braceletId);
+
+  // TODO : get secure contacts by username
+  const secureContacts = null;
   /* body : 
         {
             BraceletId : "guid",
@@ -14,4 +20,7 @@ module.exports.sendAlarm = async (body) => {
             ]
         }   
     */
+
+  // TODO : send alarm message to SNS
+
 };
