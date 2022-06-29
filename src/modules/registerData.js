@@ -17,7 +17,6 @@ const prepareRecords = (data, dimensions) => {
   const { Time: time } = { ...data };
   delete data.Time;
 
-  console.log(time);
   const payload = {
     Dimensions: dimensions,
     MeasureName: "data",
