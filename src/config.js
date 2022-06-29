@@ -4,5 +4,5 @@ module.exports.constants = {
   REGION: process.env.REGION,
   ACCESSKEYID: process.env.ACCESSKEYID,
   SECRETACCESSKEY: process.env.SECRETACCESSKEY,
-  API_GATEWAY : process.env.API_GATEWAY,
+  API_GATEWAY: process.env.API_GATEWAY,
 };

@@ -37,7 +37,7 @@ const sendAlarm = async (body) => {
 
 // TODO : create a mock test to send alarm from local
 const sendAlarmTest = async () => {
-    // TODO : implement send SNS msg test
+  // TODO : implement send SNS msg test
 };
 
 module.exports = sendAlarm;

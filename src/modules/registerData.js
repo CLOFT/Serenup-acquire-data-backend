@@ -1,6 +1,6 @@
-const { constants } = require("../config");
-const { WriteRecordsCommand } = require("@aws-sdk/client-timestream-write");
-const { TimestreamWriteClient } = require("@aws-sdk/client-timestream-write");
+const { constants } = require('../config');
+const { WriteRecordsCommand } = require('@aws-sdk/client-timestream-write');
+const { TimestreamWriteClient } = require('@aws-sdk/client-timestream-write');
 
 // Initialize Timestream Client
 const client = new TimestreamWriteClient({
@@ -19,9 +19,9 @@ const prepareRecords = (data, dimensions) => {
 
   const payload = {
     Dimensions: dimensions,
-    MeasureName: "data",
+    MeasureName: 'data',
     MeasureValue: JSON.stringify(data),
-    MeasureValueType: "VARCHAR",
+    MeasureValueType: 'VARCHAR',
     Time: time,
   };
 
@@ -31,7 +31,7 @@ const prepareRecords = (data, dimensions) => {
 // Insert into Timestream DB with sdk
 module.exports.registerData = async (data) => {
   // required
-  const dimensions = [{ Name: "region", Value: constants.REGION }];
+  const dimensions = [{ Name: 'region', Value: constants.REGION }];
 
   const records = prepareRecords(data, dimensions);
 

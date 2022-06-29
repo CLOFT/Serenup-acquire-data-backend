@@ -1,4 +1,4 @@
-const { constants } = require("../../config");
+const { constants } = require('../../config');
 
 // Get username by BraceletId
 const getUsernameByBraceletId = async (braceletId) => {
