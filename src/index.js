@@ -14,7 +14,7 @@ PAYLOAD Bracelets
 {
   "braceletId" : "guid",
   "heartbeat" : "int",
-  "actualPosition" : "varchar (coordinates  example : 41°24'12.2"N 2°10'26.5"E)",
+  "actualPosition" : "varchar (coordinates  example : 45.962650,  12.655040)",
   "bloodPressure" : {
     "systolicPressure" : "int",
     "diastolicPressure" : "int"

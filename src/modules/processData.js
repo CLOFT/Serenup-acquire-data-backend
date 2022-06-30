@@ -1,5 +1,6 @@
 const { registerData } = require('./registerData');
 const sendAlarm = require('./sendAlarm');
+const { registerAlarm } = require('./api-gateway/alarms');
 
 // Process bracelets data
 const processData = async (data) => {
@@ -9,7 +10,9 @@ const processData = async (data) => {
   }
   if (data.Alarm != null) {
     // TODO : send alarm message to SNS
-    const res = await sendAlarm(data);
+    if (data.Alarm === 'FALL') {
+      const res = await sendAlarm(data);
+    }
   }
 
   try {
