@@ -1,5 +1,5 @@
 // Module to register an alarm into relational DB
-const { constants } = require('../config');
+const { constants } = require('../../config');
 const { default: axios } = require('axios');
 
 // POST /alarms

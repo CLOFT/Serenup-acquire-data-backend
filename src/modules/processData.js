@@ -1,10 +1,15 @@
 const { registerData } = require('./registerData');
+const sendAlarm = require('./sendAlarm');
 
 // Process bracelets data
-module.exports.processData = async (data) => {
+const processData = async (data) => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
   if (data.Alarm != null) {
     // TODO : send alarm message to SNS
-    // TODO : insert alarm into DB
+    const res = await sendAlarm(data);
   }
 
   try {
@@ -21,3 +26,5 @@ module.exports.processData = async (data) => {
     console.log(error);
   }
 };
+
+module.exports = processData;
