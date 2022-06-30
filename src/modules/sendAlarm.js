@@ -15,13 +15,14 @@ const extractContactsEmails = async (secureContacts) =>
 const sendAlarm = async (body) => {
   const username = await getUsernameByBraceletsId(body.braceletId);
 
-  // TODO : get secure contacts by username
   const secureContacts = await getSecureContactsByUsername(username);
 
+  const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.position);
+
   const message = `
-    <p> Alarm of Fall! You're a secure contact of ${username} </p>
-    <p> His/Her current position is : ${body.position}</p>
-    <p> Tap <a link> </a></p>
+    Alarm of Fall! You're a secure contact of ${username} </p>
+    His/Her current position is : ${body.position}</p>
+    Tap here to see --> ${link}
     `;
   /*
   alarm payload 
@@ -93,14 +94,15 @@ const sendAlarmTest = async () => {
   // TODO : implement send SNS msg test
   const body = {};
   await sendAlarm({
-    braceletId : "8e8a89d3-bec2-47ba-8669-437970a6f3f5",
-    Type : "LOW_BATTERY",
-    Value : 18
+    braceletId: '8e8a89d3-bec2-47ba-8669-437970a6f3f5',
+    type: 'LOW_BATTERY',
+    position: '45.962650,12.655040',
+    value: 18,
   });
 };
 
-(async() => {
+(async () => {
   await sendAlarmTest();
-})()
+})();
 
 module.exports = sendAlarm;
