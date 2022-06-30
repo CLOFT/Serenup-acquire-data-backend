@@ -1,15 +1,21 @@
 // Module to register an alarm into relational DB
 const { constants } = require('../config');
+const { default: axios } = require('axios');
 
-// HTTP Req /alarms
-module.exports.registerAlarm = async (alarmBody) => {
-  const res = await fetch(constants.API_GATEWAY + '/alarms', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(alarmBody),
-  });
-  const values = await res.json();
+// POST /alarms
+const registerAlarm = async (alarmBody) => {
+  let result = null;
+  try {
+    const response = await axios(constants.API_GATEWAY + '/api/Alarms', {
+      method: 'POST',
+      data: alarmBody,
+    });
+    result = response.data;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    return result;
+  }
 };
+
+module.exports = registerAlarm;
