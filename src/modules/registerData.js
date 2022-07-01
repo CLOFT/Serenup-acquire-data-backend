@@ -1,6 +1,5 @@
 const { constants } = require('../config');
-const { WriteRecordsCommand } = require('@aws-sdk/client-timestream-write');
-const { TimestreamWriteClient } = require('@aws-sdk/client-timestream-write');
+const { TimestreamWriteClient, WriteRecordsCommand } = require('@aws-sdk/client-timestream-write');
 
 // Initialize Timestream Client
 const client = new TimestreamWriteClient({

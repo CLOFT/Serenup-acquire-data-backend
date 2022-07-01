@@ -1,7 +1,6 @@
 const path = require('path');
 
-// load environment variables
-const { processData } = require('./modules/processData');
+const processData  = require('./modules/processData');
 
 // API Gateway handler
 exports.handler = async (event, context) => {

@@ -1,8 +1,6 @@
 const { constants } = require('../config');
 const getUsernameByBraceletsId = require('./api-gateway/bracelets');
-const {
-  getSecureContactsByUsername,
-} = require('./api-gateway/userSecureContacts');
+const getSecureContactsByUsername = require('./api-gateway/userSecureContacts');
 const AWS = require('aws-sdk');
 
 const ses = new AWS.SES({ region: 'eu-west-1' });
