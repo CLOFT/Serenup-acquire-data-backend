@@ -34,7 +34,6 @@ module.exports.registerData = async (data) => {
 
   const records = prepareRecords(data, dimensions);
 
-  console.log(records);
   // WriteRecordsCommandInput
   const input = {
     DatabaseName: constants.DATABASE_NAME,

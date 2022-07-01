@@ -5,17 +5,28 @@ const { default: axios } = require('axios');
 // POST /alarms
 const registerAlarm = async (alarmBody) => {
   let result = null;
+  const data = await extractAlarm(alarmBody);
   try {
     const response = await axios(constants.API_GATEWAY + '/api/Alarms', {
       method: 'POST',
-      data: alarmBody,
+      data: data,
     });
     result = response.data;
   } catch (error) {
-    console.log(error);
+    console.log(error.data.errors);
   } finally {
     return result;
   }
+};
+
+// prepare body
+const extractAlarm = async (body) => {
+  return {
+    BraceletId: body.BraceletId,
+    Type: body.Type,
+    Value: body.Value,
+    Timestamp: body.Time,
+  };
 };
 
 module.exports = registerAlarm;

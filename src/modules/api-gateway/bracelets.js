@@ -6,13 +6,13 @@ const getUsernameByBraceletId = async (braceletId) => {
   let result = null;
   try {
     const response = await axios(
-      constants.API_GATEWAY + `/Bracelets/${braceletId}`
+      constants.API_GATEWAY + `/api/Bracelets/${braceletId}`
     );
     result = response.data;
   } catch (error) {
     console.log(error);
   } finally {
-    return result;
+    return result.username;
   }
 };
 

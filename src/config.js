@@ -6,5 +6,6 @@ module.exports.constants = {
   SECRETACCESSKEY: process.env.SECRETACCESSKEY,
   API_GATEWAY: process.env.API_GATEWAY,
   SENDER_EMAIL_ADDRESS: process.env.SENDER_EMAIL_ADDRESS,
-  MAPS_DIR_LINK: process.env.MAPS_DIR_LINK,
+  MAPS_SEARCH_LINK: process.env.MAPS_SEARCH_LINK,
+  TOPIC_ARN: process.env.TOPIC_ARN,
 };

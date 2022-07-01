@@ -3,7 +3,7 @@ const getUsernameByBraceletsId = require('./api-gateway/bracelets');
 const getSecureContactsByUsername = require('./api-gateway/userSecureContacts');
 const AWS = require('aws-sdk');
 
-const ses = new AWS.SES({ region: 'eu-west-1' });
+const sns = new AWS.SNS({ region: 'eu-west-1' });
 
 // Extract secure contacts emails
 const extractContactsEmails = async (secureContacts) =>
@@ -11,12 +11,16 @@ const extractContactsEmails = async (secureContacts) =>
 
 // Send alarm message with SNS
 const sendAlarm = async (body) => {
+  console.log('body', body);
   try {
-    const username = await getUsernameByBraceletsId(body.braceletId);
+    const username = await getUsernameByBraceletsId(body.BraceletId);
 
+    console.log('username', username);
     const secureContacts = await getSecureContactsByUsername(username);
 
-    const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.position);
+    console.log('secureContacts : ', secureContacts);
+
+    const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.Position);
     const message = `
     Alarm of Fall! You're a secure contact of ${username} 
     Tap here to find your friend --> ${link}
