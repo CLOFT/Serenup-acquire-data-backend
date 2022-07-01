@@ -11,14 +11,11 @@ const extractContactsEmails = async (secureContacts) =>
 
 // Send alarm message with SNS
 const sendAlarm = async (body) => {
-  console.log('body', body);
   try {
     const username = await getUsernameByBraceletsId(body.SerialNumber);
 
-    console.log('username', username);
     const secureContacts = await getSecureContactsByUsername(username);
 
-    console.log('secureContacts : ', secureContacts);
 
     const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.Position);
     const message = `
