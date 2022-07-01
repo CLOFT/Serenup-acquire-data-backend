@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@aws-sdk/client-timestream-write": "^3.121.0",
+    "aws-sdk": "^2.1165.0",
+    "axios": "^0.27.2",
+    "got": "^12.1.0"
+  }
+}
