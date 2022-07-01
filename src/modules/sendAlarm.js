@@ -13,7 +13,7 @@ const extractContactsEmails = async (secureContacts) =>
 const sendAlarm = async (body) => {
   console.log('body', body);
   try {
-    const username = await getUsernameByBraceletsId(body.BraceletId);
+    const username = await getUsernameByBraceletsId(body.SerialNumber);
 
     console.log('username', username);
     const secureContacts = await getSecureContactsByUsername(username);

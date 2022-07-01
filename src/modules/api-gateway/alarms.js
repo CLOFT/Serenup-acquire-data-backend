@@ -22,7 +22,7 @@ const registerAlarm = async (alarmBody) => {
 // prepare body
 const extractAlarm = async (body) => {
   return {
-    BraceletId: body.BraceletId,
+    BraceletId: body.SerialNumber,
     Type: body.Type,
     Value: body.Value,
     Timestamp: body.Time,
