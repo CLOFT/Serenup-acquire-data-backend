@@ -11,7 +11,7 @@ const ses = new AWS.SES({ region: 'eu-west-1' });
 const extractContactsEmails = async (secureContacts) =>
   secureContacts.map((c) => c.contactEmail);
 
-// Send alarm message with SES
+// Send alarm message with SNS
 const sendAlarm = async (body) => {
   try {
     const username = await getUsernameByBraceletsId(body.braceletId);
@@ -20,21 +20,19 @@ const sendAlarm = async (body) => {
 
     const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.position);
     const message = `
-      Alarm of Fall! You're a secure contact of ${username} 
-      Tap here to see your friend's position --> ${link}
-      `;
+    Alarm of Fall! You're a secure contact of ${username} 
+    Tap here to find your friend --> ${link}
+    `;
 
-    // prepare params for SNS message
-
+    // Create SNS body
     var params = {
-      Message: message,
+      Message: message /* required */,
       Subject: 'Fall Alarm',
       TopicArn: constants.TOPIC_ARN,
     };
 
-    // Publish message
-
-    const res = await sns.publish(params).promise();
+    // Send email alarm
+    const response = await sns.publish(params).promise();
   } catch (error) {
     console.log(error);
   }
