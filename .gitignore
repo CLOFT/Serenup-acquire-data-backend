@@ -113,3 +113,6 @@ dist
 
 # Prettier
 .prettierrc
+
+# Ignore mac files
+.DS_STORE

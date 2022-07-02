@@ -12,12 +12,12 @@ const extractContactsEmails = async (secureContacts) =>
 // Send alarm message with SNS
 const sendAlarm = async (body) => {
   try {
-    const username = await getUsernameByBraceletsId(body.SerialNumber);
+    const username = await getUsernameByBraceletsId(body.serialNumber);
 
     const secureContacts = await getSecureContactsByUsername(username);
 
 
-    const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.Position);
+    const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.position);
     const message = `
     Alarm of Fall! You're a secure contact of ${username} 
     Tap here to find your friend --> ${link}
