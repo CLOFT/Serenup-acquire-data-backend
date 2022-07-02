@@ -13,8 +13,8 @@ const client = new TimestreamWriteClient({
 // Prepare records for Timestream WriteCommand
 const prepareRecords = (data, dimensions) => {
   // data.time = data.time.toString(); // convert to unix timestamp
-  const { Time: time } = { ...data };
-  delete data.Time;
+  const { time : time } = { ...data };
+  delete data.time;
 
   const payload = {
     Dimensions: dimensions,
@@ -30,7 +30,7 @@ const prepareRecords = (data, dimensions) => {
 // Insert into Timestream DB with sdk
 module.exports.registerData = async (data) => {
   // required
-  const dimensions = [{ Name: 'region', Value: constants.REGION }];
+  const dimensions = [{ Name : "bracelet-id", Value : {... data.serialNumber}}];
 
   const records = prepareRecords(data, dimensions);
 
@@ -50,7 +50,7 @@ module.exports.registerData = async (data) => {
 
 PAYLOAD Bracelets
 {
-  "braceletId" : "guid",
+  "serialNumber" : "guid",
   "heartbeat" : "int",
   "actualPosition" : "varchar (coordinates  example : 41°24'12.2"N 2°10'26.5"E)",
   "bloodPressure" : {
