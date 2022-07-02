@@ -7,10 +7,10 @@ const processData = async (data) => {
   try {
     data = JSON.parse(data);
 
-    if (data.Alarm != null) {
+    if (data.alarm != null) {
       await registerAlarm(data);
       // TODO : send alarm message to SNS
-      if (data.Alarm === 'FALL') {
+      if (data.alarm === 'FALL') {
         const res = await sendAlarm(data);
       }
     }
