@@ -30,8 +30,7 @@ const prepareRecords = (data, dimensions) => {
 // Insert into Timestream DB with sdk
 module.exports.registerData = async (data) => {
   // required
-  const dimensions = [{ Name : "bracelet-id", Value : {... data.serialNumber}}];
-
+  const dimensions = [{ Name : "bracelet_id", Value : data.serialNumber}];
   const records = prepareRecords(data, dimensions);
 
   // WriteRecordsCommandInput
