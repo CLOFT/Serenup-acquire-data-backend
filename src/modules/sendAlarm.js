@@ -1,40 +1,42 @@
-const { constants } = require('../config');
-const getUsernameByBraceletsId = require('./api-gateway/bracelets');
-const getSecureContactsByUsername = require('./api-gateway/userSecureContacts');
-const AWS = require('aws-sdk');
+const { constants } = require("../config");
+const getUsernameByBraceletsId = require("./api-gateway/bracelets");
+const getSecureContactsByUsername = require("./api-gateway/userSecureContacts");
+const emailService = require("@sendgrid/mail");
 
-const sns = new AWS.SNS({ region: 'eu-west-1' });
+emailService.setApiKey(constants.SENDGRID_API_KEY);
 
 // Extract secure contacts emails
 const extractContactsEmails = async (secureContacts) =>
-  secureContacts.map((c) => c.contactEmail);
+    secureContacts.map((c) => c.contactEmail);
 
 // Send alarm message with SNS
 const sendAlarm = async (body) => {
-  try {
-    const username = await getUsernameByBraceletsId(body.serialNumber);
+    try {
+        const username = await getUsernameByBraceletsId(body.serialNumber);
 
-    const secureContacts = await getSecureContactsByUsername(username);
+        const secureContacts = await getSecureContactsByUsername(username);
 
-
-    const link = constants.MAPS_SEARCH_LINK + encodeURIComponent(body.position);
-    const message = `
-    Alarm of Fall! You're a secure contact of ${username} 
-    Tap here to find your friend --> ${link}
+        const link =
+            constants.MAPS_SEARCH_LINK + encodeURIComponent(body.position);
+        const message = `
+<p>Alarm of Fall! You're a secure contact of ${username} </p> 
+<p>Tap here to find your friend --> ${link} </p>
     `;
 
-    // Create SNS body
-    var params = {
-      Message: message /* required */,
-      Subject: 'Fall Alarm',
-      TopicArn: constants.TOPIC_ARN,
-    };
+        // Send email alarm
 
-    // Send email alarm
-    const response = await sns.publish(params).promise();
-  } catch (error) {
-    console.log(error);
-  }
+        const email = {
+            to: constants.SENDGRID_FROM_EMAIL, // required
+            bcc: secureContacts,
+            from: constants.SENDGRID_FROM_EMAIL, // verified mail
+            subject: "Fall Alarm",
+            html: message,
+        };
+
+        const response = await emailService.send(email);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 module.exports = sendAlarm;
