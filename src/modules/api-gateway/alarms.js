@@ -25,7 +25,7 @@ const extractAlarm = async (body) => {
     BraceletId: body.serialNumber,
     Type: body.type,
     Value: body.value,
-    Timestamp: body.time,
+    Time: body.time,
   };
 };
 
