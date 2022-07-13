@@ -6,11 +6,12 @@ const { default: axios } = require('axios');
 const registerAlarm = async (alarmBody) => {
   let result = null;
   const data = await extractAlarm(alarmBody);
+  console.log('Alarms data: ', data);
   try {
-    const response = await axios(constants.API_GATEWAY + '/api/Alarms', {
-      method: 'POST',
-      data: data,
-    });
+    const response = await axios.post(
+      constants.API_GATEWAY + '/api/Alarms',
+      data
+    );
     result = response.data;
   } catch (error) {
     console.log(error.data.errors);
@@ -21,11 +22,13 @@ const registerAlarm = async (alarmBody) => {
 
 // prepare body
 const extractAlarm = async (body) => {
+  let value;
+  if (body.alarm == 'LOW_BATTERY') value = body.battery;
   return {
     BraceletId: body.serialNumber,
-    Type: body.type,
-    Value: body.value,
-    Time: body.time,
+    Type: body.alarm,
+    Value: value ?? null,
+    Time: new Date(body.time),
   };
 };
 
