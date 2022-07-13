@@ -1,12 +1,11 @@
 // Module to register an alarm into relational DB
 const { constants } = require('../../config');
 const { default: axios } = require('axios');
-
+const moment = require('moment');
 // POST /alarms
 const registerAlarm = async (alarmBody) => {
   let result = null;
   const data = await extractAlarm(alarmBody);
-  console.log('Alarms data: ', data);
   try {
     const response = await axios.post(
       constants.API_GATEWAY + '/api/Alarms',
@@ -14,7 +13,8 @@ const registerAlarm = async (alarmBody) => {
     );
     result = response.data;
   } catch (error) {
-    console.log(error.data.errors);
+    console.log('Error');
+    console.log(error);
   } finally {
     return result;
   }
@@ -28,7 +28,7 @@ const extractAlarm = async (body) => {
     BraceletId: body.serialNumber,
     Type: body.alarm,
     Value: value ?? null,
-    Time: new Date(body.time),
+    Time: `${moment(parseInt(body.time)).utc(true).format()}`,
   };
 };
 
